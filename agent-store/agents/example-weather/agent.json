@@ -1,0 +1,39 @@
+{
+  "id": "example-weather",
+  "name": "Weather",
+  "version": "1.0.0",
+  "description": "Returns current weather conditions and a 3-day forecast for any location.",
+  "author": "AVAlii1993",
+  "tags": ["weather", "forecast", "location", "temperature"],
+  "runtime": "python",
+  "entrypoint": "agent.py",
+  "permissions": ["network"],
+  "triggers": {
+    "keywords": ["weather", "forecast", "temperature", "rain", "sunny", "cold", "hot", "humidity"],
+    "intents": ["weather_query", "forecast_request"]
+  },
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "weather_api_key": {
+        "type": "string",
+        "description": "API key for the weather provider (injected from vault).",
+        "secret": true
+      },
+      "units": {
+        "type": "string",
+        "description": "Unit system: 'metric' (Celsius) or 'imperial' (Fahrenheit).",
+        "enum": ["metric", "imperial"],
+        "default": "metric"
+      },
+      "forecast_days": {
+        "type": "integer",
+        "description": "Number of forecast days to include (1–7).",
+        "default": 3,
+        "minimum": 1,
+        "maximum": 7
+      }
+    },
+    "required": ["weather_api_key"]
+  }
+}

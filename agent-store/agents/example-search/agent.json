@@ -1,0 +1,38 @@
+{
+  "id": "example-search",
+  "name": "Web Search",
+  "version": "1.0.0",
+  "description": "Performs a web search and returns a summarized answer with sources.",
+  "author": "AVAlii1993",
+  "tags": ["search", "web", "research", "information"],
+  "runtime": "python",
+  "entrypoint": "agent.py",
+  "permissions": ["network"],
+  "triggers": {
+    "keywords": ["search", "find", "look up", "google", "what is", "who is", "where is"],
+    "intents": ["web_search", "information_lookup"]
+  },
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "search_api_key": {
+        "type": "string",
+        "description": "API key for the search provider (injected from vault).",
+        "secret": true
+      },
+      "max_results": {
+        "type": "integer",
+        "description": "Maximum number of search results to retrieve.",
+        "default": 5,
+        "minimum": 1,
+        "maximum": 20
+      },
+      "language": {
+        "type": "string",
+        "description": "Language code for results (e.g. 'en', 'fr').",
+        "default": "en"
+      }
+    },
+    "required": ["search_api_key"]
+  }
+}

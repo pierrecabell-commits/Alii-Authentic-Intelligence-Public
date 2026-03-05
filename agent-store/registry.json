@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AVAlii1993/Alii-Authentic-Intelligence-Public/main/sdk/agent-schema.json",
+  "version": "1",
+  "updated": "2026-03-05",
+  "agents": [
+    {
+      "id": "example-search",
+      "name": "Web Search",
+      "version": "1.0.0",
+      "description": "Performs a web search and returns a summarized answer with sources.",
+      "path": "agents/example-search",
+      "runtime": "python",
+      "tags": ["search", "web", "research"],
+      "author": "AVAlii1993"
+    },
+    {
+      "id": "example-weather",
+      "name": "Weather",
+      "version": "1.0.0",
+      "description": "Returns current weather and a 3-day forecast for any location.",
+      "path": "agents/example-weather",
+      "runtime": "python",
+      "tags": ["weather", "forecast", "location"],
+      "author": "AVAlii1993"
+    }
+  ]
+}

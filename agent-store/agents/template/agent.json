@@ -1,0 +1,31 @@
+{
+  "id": "template",
+  "name": "Template Agent",
+  "version": "1.0.0",
+  "description": "A minimal starting point for building Alii agents. Replace this description with what your agent actually does.",
+  "author": "your-github-handle",
+  "tags": ["template", "example"],
+  "runtime": "python",
+  "entrypoint": "agent.py",
+  "permissions": [],
+  "triggers": {
+    "keywords": ["template", "example"],
+    "intents": []
+  },
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "api_key": {
+        "type": "string",
+        "description": "API key for the external service (injected from vault).",
+        "secret": true
+      },
+      "max_results": {
+        "type": "integer",
+        "description": "Maximum number of results to return.",
+        "default": 5
+      }
+    },
+    "required": []
+  }
+}

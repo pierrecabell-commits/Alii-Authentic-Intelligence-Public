@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/AVAlii1993/Alii-Authentic-Intelligence-Public/main/sdk/agent-schema.json",
+  "title": "Alii Agent Manifest",
+  "description": "Schema for agent.json — the manifest file every Alii agent must provide.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "description",
+    "author",
+    "tags",
+    "runtime",
+    "entrypoint",
+    "permissions",
+    "triggers"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique agent identifier. Lowercase letters, digits, and hyphens only. Must match the agent directory name.",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "minLength": 3,
+      "maxLength": 64
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name shown in the Agent Store.",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version string (MAJOR.MINOR.PATCH).",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "description": {
+      "type": "string",
+      "description": "One sentence describing what this agent does. Used in Agent Store listings.",
+      "minLength": 10,
+      "maxLength": 512
+    },
+    "author": {
+      "type": "string",
+      "description": "GitHub username of the primary author.",
+      "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable labels. At least one required. Use lowercase.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]?$",
+        "maxLength": 32
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "runtime": {
+      "type": "string",
+      "description": "Execution environment.",
+      "enum": ["python", "node"]
+    },
+    "entrypoint": {
+      "type": "string",
+      "description": "Filename containing the Agent class, relative to the agent directory.",
+      "pattern": "^[a-zA-Z0-9._-]+\\.(py|js|ts)$"
+    },
+    "permissions": {
+      "type": "array",
+      "description": "Runtime permissions this agent requires. Request only what you need.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "network",
+          "memory_read",
+          "memory_write",
+          "vault_read",
+          "file_read",
+          "file_write",
+          "shell"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "triggers": {
+      "type": "object",
+      "description": "Routing hints that help Alii decide when to invoke this agent.",
+      "required": ["keywords", "intents"],
+      "additionalProperties": false,
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "description": "Words or phrases in user messages that suggest this agent.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "maxItems": 50
+        },
+        "intents": {
+          "type": "array",
+          "description": "Semantic intent labels used by Alii's routing layer.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$",
+            "maxLength": 64
+          },
+          "maxItems": 20
+        }
+      }
+    },
+    "config_schema": {
+      "type": "object",
+      "description": "JSON Schema (draft-07) defining the configuration this agent accepts. Alii validates user-supplied config against this schema before calling __init__.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["object"]
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "oneOf": [
+                  {"type": "string"},
+                  {"type": "array", "items": {"type": "string"}}
+                ]
+              },
+              "description": {"type": "string"},
+              "default": {},
+              "secret": {
+                "type": "boolean",
+                "description": "If true, Alii fetches this value from the vault and injects it silently. Never expose or log secrets."
+              },
+              "enum": {"type": "array"},
+              "minimum": {"type": "number"},
+              "maximum": {"type": "number"},
+              "minLength": {"type": "integer"},
+              "maxLength": {"type": "integer"},
+              "pattern": {"type": "string"}
+            }
+          }
+        },
+        "required": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "additionalProperties": {
+          "type": "boolean"
+        }
+      }
+    },
+    "homepage": {
+      "type": "string",
+      "description": "Optional URL for the agent's documentation or source repository.",
+      "format": "uri"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier (e.g. 'MIT', 'Apache-2.0').",
+      "maxLength": 64
+    },
+    "min_alii_version": {
+      "type": "string",
+      "description": "Minimum Alii runtime version required (semver).",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    }
+  }
+}
