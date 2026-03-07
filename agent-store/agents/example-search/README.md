@@ -60,9 +60,10 @@ This agent is provider-agnostic. Implement `agent.py` against your preferred sea
 
 ## Implementation Notes
 
-The reference `agent.py` (not included in this example) should:
+The included `agent.py` implementation:
 
-- Use `aiohttp` or `httpx` for async HTTP requests
-- Parse the provider's JSON response
-- Return a formatted string, not raw JSON
-- Handle network errors gracefully with a user-friendly message
+- Uses `aiohttp` for async HTTP requests with a 15-second timeout
+- Lazily initializes the HTTP session on first use
+- Parses the provider's JSON response into formatted markdown
+- Returns user-friendly error messages on failure
+- Implements `cleanup()` to close the HTTP session on shutdown

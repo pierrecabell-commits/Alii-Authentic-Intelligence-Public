@@ -57,4 +57,14 @@ async def run(self, message: str, context: dict) -> str
 
 ## Permissions
 
-Only declare permissions your agent actually uses. See [`agent-store/README.md`](../../README.md) for the full permissions table.
+Only declare permissions your agent actually uses. See the [Agent Store README](../../README.md) for the full permissions table.
+
+---
+
+## Lifecycle Methods
+
+| Method | Required | Description |
+|---|---|---|
+| `__init__(config)` | Yes | Called once at load time with resolved config |
+| `run(message, context)` | Yes | Called per routed message; must return `str` |
+| `cleanup()` | No | Called on shutdown to release resources (connections, handles) |

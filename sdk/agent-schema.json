@@ -134,7 +134,7 @@
                 ]
               },
               "description": {"type": "string"},
-              "default": {},
+              "default": true,
               "secret": {
                 "type": "boolean",
                 "description": "If true, Alii fetches this value from the vault and injects it silently. Never expose or log secrets."

@@ -97,18 +97,14 @@ npx ajv validate -s sdk/agent-schema.json \
   -d agent-store/agents/my-first-agent/agent.json
 ```
 
-Or with Python:
+Or with the built-in validation script:
 
 ```bash
 pip install jsonschema
-python -c "
-import json, jsonschema
-schema = json.load(open('sdk/agent-schema.json'))
-data   = json.load(open('agent-store/agents/my-first-agent/agent.json'))
-jsonschema.validate(data, schema)
-print('Valid')
-"
+python validate.py agent-store/agents/my-first-agent/agent.json
 ```
+
+This also checks that your agent ID matches the directory name and cross-references the registry.
 
 ---
 

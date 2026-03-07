@@ -74,10 +74,11 @@ Set `weather_api_key` to an empty string if using Open-Meteo's free tier.
 
 ## Implementation Notes
 
-The reference `agent.py` should:
+The included `agent.py` implementation:
 
-- Use `aiohttp` or `httpx` for async HTTP
-- Handle location ambiguity (ask for clarification if multiple cities match)
-- Support "my location" by reading `context["user_location"]` if available
-- Return formatted text, not raw JSON
-- Handle API errors and rate limits gracefully
+- Uses `aiohttp` for async HTTP requests with a 15-second timeout
+- Extracts location from user messages using keyword-based parsing
+- Supports `"my location"` via `context["user_location"]`
+- Returns formatted markdown with current conditions and forecast
+- Handles API errors gracefully with user-friendly messages
+- Implements `cleanup()` to close the HTTP session on shutdown

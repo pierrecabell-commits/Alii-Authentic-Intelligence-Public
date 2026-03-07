@@ -111,3 +111,7 @@ Request only what you need. Agents requesting `shell` or `vault_read` receive ad
 ## Questions?
 
 Open an issue or start a discussion. Tag it `agent-store`.
+
+---
+
+Copyright (c) 2026 Pierre Cabell. All Rights Reserved.

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/AVAlii1993/Alii-Authentic-Intelligence-Public/main/sdk/agent-schema.json",
+  "$comment": "Master registry for the Alii Agent Store. Each entry references an agent directory under agents/.",
   "version": "1",
   "updated": "2026-03-05",
   "agents": [

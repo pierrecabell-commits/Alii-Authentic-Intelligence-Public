@@ -182,9 +182,9 @@ async def run(self, message, context):
         return f"I couldn't understand that input: {e}"
     except TimeoutError:
         return "The request timed out. Please try again."
-    except Exception:
-        # Catch-all — never expose internal details
-        return "Something went wrong on my end. Please try again in a moment."
+    except Exception as e:
+        # Catch-all — include error class for diagnostics, never expose internals
+        return f"Something went wrong ({type(e).__name__}). Please try again in a moment."
 ```
 
 ---
@@ -278,6 +278,7 @@ git push origin agent/your-agent-id
 | Blocking `__init__` with network calls | Move I/O into `run` or use lazy init |
 | Over-broad keyword triggers | Be specific — don't match common words |
 | Missing error handling | Wrap all external calls in try/except |
+| No resource cleanup | Implement `cleanup()` to close sessions/handles |
 
 ---
 
@@ -298,6 +299,22 @@ class Agent:
     async def run(self, message, context):
         await self._ensure_client()
         return await self._client.query(message)
+```
+
+### Resource cleanup
+
+If your agent holds open connections or handles, implement `cleanup`:
+
+```python
+class Agent:
+    def __init__(self, config):
+        self.config = config
+        self._session = None
+
+    async def cleanup(self):
+        """Called by Alii runtime on shutdown."""
+        if self._session and not self._session.closed:
+            await self._session.close()
 ```
 
 ### Multi-turn conversation awareness

@@ -41,6 +41,9 @@ The manifest describes your agent to the Alii runtime and to the Agent Store reg
 | `permissions` | string[] | Yes | Requested runtime permissions. Empty array if none needed. |
 | `triggers` | object | Yes | Routing hints. See Triggers below. |
 | `config_schema` | object | No | JSON Schema (draft-07) for the agent's configuration. |
+| `homepage` | string (URI) | No | URL for the agent's documentation or source repository. |
+| `license` | string | No | SPDX license identifier (e.g. `"MIT"`, `"Apache-2.0"`). |
+| `min_alii_version` | string | No | Minimum Alii runtime version required (semver). |
 
 ### Triggers
 
@@ -116,12 +119,24 @@ export class Agent {
 }
 ```
 
+### Optional: cleanup
+
+Agents that hold open resources (HTTP sessions, file handles, database connections) should implement `cleanup`:
+
+```python
+async def cleanup(self) -> None:
+    """Called by Alii runtime on shutdown. Release any open resources."""
+    if self._session and not self._session.closed:
+        await self._session.close()
+```
+
 ### Rules
 
 1. `run` must be `async` (Python) or return a `Promise<string>` (Node).
 2. `run` must return a `str`/`string` in every code path — never `None`, `undefined`, or raise uncaught exceptions.
 3. `__init__`/`constructor` must not perform async I/O. Use a lazy-init pattern if needed.
 4. Do not spawn background threads or processes that outlive the `run` call.
+5. Implement `cleanup` if your agent holds resources that need explicit release.
 
 ---
 
