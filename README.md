@@ -2,7 +2,7 @@
 
 > **The self-evolving autonomous AI that lives where your people are.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
 [![Agent Store](https://img.shields.io/badge/Agent%20Store-open-brightgreen)](agent-store/)
 [![SDK](https://img.shields.io/badge/SDK-stable-blue)](sdk/)
 
