@@ -6,6 +6,8 @@
 [![Agent Store](https://img.shields.io/badge/Agent%20Store-open-brightgreen)](agent-store/)
 [![SDK](https://img.shields.io/badge/SDK-stable-blue)](sdk/)
 
+> *Status: early prototype — the agent-store schema, SDK, and submission docs are defined; the runtime is not yet implemented.*
+
 ---
 
 ## What is Alii?
